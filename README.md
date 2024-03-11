@@ -70,3 +70,10 @@ o Ensure values under certain sections are in correct format
 - File reading parser:
 
 o Ensure file / file data section corresponds to player name as selected by current player
+
+## INSTRUCTIONS
+1. Clone the project
+2. Run "make main" on command line
+3. Run  
+   Windows: SurvivalSim.exe  
+   POSIX: SurvivalSim.o  
