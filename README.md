@@ -76,4 +76,5 @@ o Ensure file / file data section corresponds to player name as selected by curr
 2. Run "make main" on command line
 3. Run  
    Windows: SurvivalSim.exe  
-   POSIX: SurvivalSim.o  
+   POSIX: SurvivalSim.o
+Note: If you encounter any problems, make sure to run "make clean" before "main main" again
