@@ -51,7 +51,7 @@ int main(int argc, char ** argv)
     /* --- Gameplay Logic --- */
 
     /* Check Game Over */
-    do 
+    while(TRUE)
     {
         while (gameInfo.timeVal < 24)
         {
@@ -117,13 +117,17 @@ int main(int argc, char ** argv)
                 }
                 free(input);
                 RegulateAllAttr(&player);
+                if (player.health <= 0)
+                    break;
             } while (repeat == TRUE);
-            if (player.health < 0)
+            if (player.health <= 0)
                 break;
         }
+        if (player.health <= 0)
+            break;
         gameInfo.dayCount++;
         gameInfo.timeVal = gameInfo.timeVal - 24; /* Regulate Time Value */
-    }while(player.health > 0);
+    }
     PrintGameOver(&gameInfo);
     FreeAll(&inventory, consumablesPool, animalPool, rewardPool);
     return 0;
