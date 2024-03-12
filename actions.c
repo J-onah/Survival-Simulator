@@ -95,7 +95,8 @@ void AnimalEncounter(Animal * pool, Item * rewardPool, Player * player, Inventor
                 break;
             default:
                 repeat = TRUE;
-                printf("Error in Item Confirmation\n");
+                fprintf(stderr, "Error in Animal Encounter Choice Confirmation\n");
+                exit(EXIT_FAILURE);
                 break;
         }
         free(input);

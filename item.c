@@ -19,8 +19,8 @@ Item * SetupConsumableTypes()
     Item * items = (Item *) malloc (sizeof(Item) * NUM_CONSUMABLES_TYPE);
     if (!items)
     {
-        printf("ERROR: Malloc unsuccessful");
-        return NULL;
+        fprintf(stderr, "ERROR: Malloc unsuccessful");
+        exit(EXIT_FAILURE);
     }
     items[0] = InitialiseConsumables("Clean Water", 0, 0, 50, 15);
     items[1] = InitialiseConsumables("Canned Beans", 10, 30, 10, 10);
@@ -48,8 +48,8 @@ Item * SetupConsumables()
         return NULL;
     if (!consumables)
     {
-        printf("ERROR: Malloc unsuccessful");
-        return NULL;
+        fprintf(stderr, "ERROR: Malloc unsuccessful");
+        exit(EXIT_FAILURE);
     }
     for (i = 0; i < NUM_CONSUMABLES_TYPE; i++)
     {
@@ -113,7 +113,8 @@ void ItemConfirmation(Player * player, Inventory * inventoryStruct, Item item, i
                 break;
             default:
                 repeat = TRUE;
-                printf("Error in Item Confirmation\n");
+                fprintf(stderr, "Error in Item Confirmation\n");
+                exit(EXIT_FAILURE);
                 break;
         }
         free(input);

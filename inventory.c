@@ -12,7 +12,8 @@ Inventory SetupInventory()
     Item * inventory = (Item *) malloc(sizeof(Item));
     if (!inventory)
     {
-        printf("ERROR: Malloc unsuccessful");
+        fprintf(stderr, "ERROR: Malloc unsuccessful");
+        exit(EXIT_FAILURE);
     }
     else
     {
@@ -42,8 +43,8 @@ void RemoveFromInventory(Inventory * inventoryStruct, int idx)
     Item * copy = (Item *) malloc(sizeof(Item)* (count));
     if (!copy)
     {
-        printf("ERROR: Malloc unsuccessful");
-        return;
+        fprintf(stderr, "ERROR: Malloc unsuccessful");
+        exit(EXIT_FAILURE);
     }
     for(i = 0; i < count; i++)
     {

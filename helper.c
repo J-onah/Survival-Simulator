@@ -19,8 +19,8 @@ char * ReadFromScanf(char * input)
     ret = (char *) malloc(sizeof(char) * (count+1));
     if (!ret)
     {
-        printf("ERROR: Malloc unsuccessful");
-        return NULL;
+        fprintf(stderr, "ERROR: Malloc unsuccessful");
+        exit(EXIT_FAILURE);
     }
     for (i = 0; i < count; i++)
     {

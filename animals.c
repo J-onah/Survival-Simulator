@@ -29,8 +29,8 @@ Animal * SetupAnimalTypes()
     Animal * animals = (Animal *) malloc(sizeof(Animal) * NUM_ANIMALS_TYPE);
     if (!animals)
     {
-        printf("ERROR: Malloc unsuccessful");
-        return NULL;
+        fprintf(stderr, "ERROR: Malloc unsuccessful");
+        exit(EXIT_FAILURE);
     }
 
     animals[0] = InitialiseAnimal("Snake", 50, 70, 20, 0, 
@@ -83,8 +83,8 @@ Animal * SetupAnimals()
     Animal * pool = (Animal *) malloc(sizeof(Animal) * POOL_SIZE);
     if (!pool)
     {
-        printf("ERROR: Malloc unsuccessful");
-        return NULL;
+        fprintf(stderr, "ERROR: Malloc unsuccessful");
+        exit(EXIT_FAILURE);
     }
     for (i = 0; i < NUM_ANIMALS_TYPE; i++)
     {
