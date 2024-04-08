@@ -1,0 +1,5 @@
+user                                                                                                item                                                                                                
+testUser1                                                                                           Clean-Water                                                                                         
+testUser1                                                                                           Dried-Fruit                                                                                         
+testUser2                                                                                           Honey                                                                                               
+testUser2                                                                                           Crocodile-Meat                                                                                      
