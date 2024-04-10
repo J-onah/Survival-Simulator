@@ -601,9 +601,10 @@ int readWriteStatementParser(ReadWriteDataInfo * readWriteDataInfoPtr){
                 case STATEMENT_IDENTIFIER:
                     if(statementParserFSM.isTableName && tokenStream[i]->tokenType == TOKEN_KEYWORD_SET){
                         /* Eg. ... table_name SET ... */
+                        statementParserFSM.isTableName = 0;
                         statementParserFSM.currentState = STATEMENT_SET; 
                     }
-                    else if(tokenStream[i]->tokenType == TOKEN_EQUAL){
+                    else if((statementParserFSM.isNonMatchCol || statementParserFSM.isMatchCol) && tokenStream[i]->tokenType == TOKEN_EQUAL){
                         /* Eg. col_name1 = ... */
                         statementParserFSM.currentState = STATEMENT_EQUAL; 
                     }
@@ -647,6 +648,7 @@ int readWriteStatementParser(ReadWriteDataInfo * readWriteDataInfoPtr){
                     }
                     else if(statementParserFSM.isNonMatchCol && tokenStream[i]->tokenType == TOKEN_KEYWORD_WHERE){
                         /* Eg. ... SET col_name1 = \tvalue1\t WHERE ... */
+                        statementParserFSM.isNonMatchCol = 0;
                         statementParserFSM.currentState = STATEMENT_WHERE;
                     }
                     else if(statementParserFSM.isMatchCol && tokenStream[i]->tokenType == TOKEN_KEYWORD_AND){
@@ -730,6 +732,7 @@ int readWriteStatementParser(ReadWriteDataInfo * readWriteDataInfoPtr){
                     }
                     else if(statementParserFSM.isTableName && tokenStream[i]->tokenType == TOKEN_KEYWORD_WHERE){
                         /* Eg. DELETE FROM table_name WHERE */
+                        statementParserFSM.isTableName = 0;
                         statementParserFSM.currentState = STATEMENT_WHERE; 
                     }
                     else if(statementParserFSM.isMatchCol && tokenStream[i]->tokenType == TOKEN_EQUAL){
