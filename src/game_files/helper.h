@@ -31,5 +31,5 @@ typedef struct item Item;
 typedef struct inventoryStruct Inventory;
 typedef struct animal Animal;
 
-char * ReadFromScanf(char * input);
+char * readFromScanf(char * input);
 #endif

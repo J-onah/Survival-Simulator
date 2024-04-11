@@ -6,7 +6,7 @@
 #include "inventory.h"
 #include "item.h"
 
-Inventory SetupInventory()
+Inventory setupInventory()
 {
     Inventory inventoryStruct;
     Item * inventory = (Item *) malloc(sizeof(Item));
@@ -23,7 +23,7 @@ Inventory SetupInventory()
     return inventoryStruct;
 }
 
-void AddToInventory(Inventory * inventoryStruct, Item item)
+void addToInventory(Inventory * inventoryStruct, Item item)
 {
     item.index = inventoryStruct->count + 1;
 
@@ -33,7 +33,7 @@ void AddToInventory(Inventory * inventoryStruct, Item item)
     inventoryStruct->count = inventoryStruct->count + 1;
 }
 
-void RemoveFromInventory(Inventory * inventoryStruct, int idx)
+void removeFromInventory(Inventory * inventoryStruct, int idx)
 {
     /* Setup Copy */
     int i;
@@ -77,12 +77,12 @@ void RemoveFromInventory(Inventory * inventoryStruct, int idx)
     free(copy);
 }
 
-void FreeInventory(Inventory * inventoryStruct)
+void freeInventory(Inventory * inventoryStruct)
 {
     free(inventoryStruct->inventory);
 }
 
-void PrintInventoryList(Inventory * inventoryStruct)
+void printInventoryList(Inventory * inventoryStruct)
 {
     int i;
     printf("Inventory\n");
@@ -96,7 +96,7 @@ void PrintInventoryList(Inventory * inventoryStruct)
     printf("Decision: ");
 }
 
-int InventoryParser(Inventory * inventoryStruct, char * input)
+int inventoryParser(Inventory * inventoryStruct, char * input)
 {
     int i;
     /* char temp[3]; */
@@ -125,7 +125,7 @@ int InventoryParser(Inventory * inventoryStruct, char * input)
     return ERROR;
 }
 
-void InventoryManagement(Player * player, Inventory * inventoryStruct, int * repeat)
+void inventoryManagement(Player * player, Inventory * inventoryStruct, int * repeat)
 {
     char scan[20];
     char * input;
@@ -134,10 +134,10 @@ void InventoryManagement(Player * player, Inventory * inventoryStruct, int * rep
     do
     {
         again = FALSE;
-        PrintInventoryList(inventoryStruct);
+        printInventoryList(inventoryStruct);
         scanf("%s", scan);
-        input = ReadFromScanf(scan);
-        choice = InventoryParser(inventoryStruct, input);
+        input = readFromScanf(scan);
+        choice = inventoryParser(inventoryStruct, input);
         switch(choice)
         {
             case BACK:
@@ -148,7 +148,7 @@ void InventoryManagement(Player * player, Inventory * inventoryStruct, int * rep
                 printf("Please enter a valid input.\n");
                 break;
             default:
-                ItemConfirmation(player, inventoryStruct, inventoryStruct->inventory[choice-1], &again);
+                itemConfirmation(player, inventoryStruct, inventoryStruct->inventory[choice-1], &again);
                 break;
         }
         free(input);

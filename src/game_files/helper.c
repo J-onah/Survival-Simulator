@@ -3,7 +3,7 @@
 
 #include "helper.h"
 
-char * ReadFromScanf(char * input)
+char * readFromScanf(char * input)
 {
     int count = 0;
     int i = 0;

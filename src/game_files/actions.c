@@ -15,37 +15,37 @@
 #define HUNGER_RATE 3
 #define THIRST_RATE 5
 
-void Scavange(GameInfo * gameInfo, Player * player, Inventory * inventoryStruct, Animal* animalPool, Item * consumablesPool, Item * rewardPool)
+void scavange(GameInfo * gameInfo, Player * player, Inventory * inventoryStruct, Animal* animalPool, Item * consumablesPool, Item * rewardPool)
 {
     int x;
     int encounter;
     int rollDice;
     int hours;
 
-    hours = GetRNGMod(5) + 1; /* Scavange/Fight Maximum 5 hours */
+    hours = getRNGMod(5) + 1; /* scavange/Fight Maximum 5 hours */
     gameInfo->timeVal = gameInfo->timeVal + hours;
 
     x = gameInfo->dayCount - gameInfo->lastWin;
-    encounter = GetRNGMod((int)5*exp((double)x));
+    encounter = getRNGMod((int)5*exp((double)x));
     if (encounter > 95)
         encounter = 95;
-    rollDice = GetRNGMod(100);
-    (rollDice <= encounter) ? AnimalEncounter(animalPool, rewardPool, player, inventoryStruct) : GatherResource(consumablesPool, inventoryStruct, hours);
+    rollDice = getRNGMod(100);
+    (rollDice <= encounter) ? animalEncounter(animalPool, rewardPool, player, inventoryStruct) : gatherResource(consumablesPool, inventoryStruct, hours);
     player->energy -= hours * ENERGY_EXPENSE_RATE;
     player->hunger = player->hunger + HUNGER_RATE * hours;
     player->thirst = player->thirst + THIRST_RATE * hours;
 }
 
-void Rest(GameInfo * gameInfo, Player * player)
+void rest(GameInfo * gameInfo, Player * player)
 {
-    int hours = GetRNGMod(8) + 1; /* Can only sleep a maximum of 8 hours */
+    int hours = getRNGMod(8) + 1; /* Can only sleep a maximum of 8 hours */
     gameInfo->timeVal = gameInfo->timeVal + hours;
     player->energy = player->energy + ENERGY_REGEN_RATE * hours;
     player->hunger = player->hunger + HUNGER_RATE * hours;
     player->thirst = player->thirst + THIRST_RATE * hours;
 }
 
-void AnimalEncounter(Animal * pool, Item * rewardPool, Player * player, Inventory * inventoryStruct)
+void animalEncounter(Animal * pool, Item * rewardPool, Player * player, Inventory * inventoryStruct)
 {
     char scan[20];
     char * input;
@@ -53,8 +53,8 @@ void AnimalEncounter(Animal * pool, Item * rewardPool, Player * player, Inventor
     int repeat, rng;
     Animal animal;
 
-    pool = SetupAnimals();
-    rng = GetRNGMod(100);
+    pool = setupAnimals();
+    rng = getRNGMod(100);
     animal = pool[rng];
     outcome = FALSE;
     reward = FALSE;
@@ -64,15 +64,15 @@ void AnimalEncounter(Animal * pool, Item * rewardPool, Player * player, Inventor
         repeat = FALSE;
         printf("Do you wish to fight or run?\n1 - Fight\t2-Run\nDecision: ");
         scanf("%s", scan);
-        input = ReadFromScanf(scan);
-        switch(AnimalEncounterParser(input))
+        input = readFromScanf(scan);
+        switch(animalEncounterParser(input))
         {
             case FIGHT:
-                FightAnimal(animal, rewardPool[animal.rewardIdx], &outcome, &reward);
+                fightAnimal(animal, rewardPool[animal.rewardIdx], &outcome, &reward);
                 if(outcome && reward)
                 {
                     printf("%s\n", animal.rewardText);
-                    AddToInventory(inventoryStruct, rewardPool[animal.rewardIdx]);
+                    addToInventory(inventoryStruct, rewardPool[animal.rewardIdx]);
                 }
                 else if(!outcome)
                 {
@@ -103,29 +103,29 @@ void AnimalEncounter(Animal * pool, Item * rewardPool, Player * player, Inventor
     } while (repeat == TRUE);
 }
 
-void GatherResource(Item * pool, Inventory * inventoryStruct, int hours)
+void gatherResource(Item * pool, Inventory * inventoryStruct, int hours)
 {
-    /* (Unbalanced) multiple resource per Scavange
+    /* (Unbalanced) multiple resource per scavange
     int i = 0;
     int NumResource = hours/4;
     NumResource = (NumResource == 0) ? 1 : NumResource; 
     for (i = 0; i < NumResource; i++)
     {
-        int rng_num = GetRNGMod(100);
+        int rng_num = getRNGMod(100);
         Item item = pool[rng_num];
-        AddToInventory(inventoryStruct, item);
+        addToInventory(inventoryStruct, item);
         printf("You found a %s!\n", item.name);
     }
     */ 
 
-    /* Only 1 resource per Scavange */
-    int rng_num = GetRNGMod(100);
+    /* Only 1 resource per scavange */
+    int rng_num = getRNGMod(100);
     Item item = pool[rng_num];
-    AddToInventory(inventoryStruct, item);
+    addToInventory(inventoryStruct, item);
     printf("You found a %s!\n", item.name);
 }
 
-int AnimalEncounterParser(char * input)
+int animalEncounterParser(char * input)
 {
     char * str = toLowercase(input);
     if (!strcmp(str,"1") || !strcmp(str,"fight"))

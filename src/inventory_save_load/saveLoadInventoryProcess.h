@@ -11,7 +11,7 @@
 
 #define TOTAL_INVENTORY_ITEMS_COUNT 15
 
-extern void AddToInventory(Inventory * inventoryStruct, Item item);
+extern void addToInventory(Inventory * inventoryStruct, Item item);
 
 extern Item getItem(const char * itemName);
 extern void loadUserInventory(const char * username, 

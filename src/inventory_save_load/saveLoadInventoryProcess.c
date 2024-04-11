@@ -113,7 +113,7 @@ void loadUserInventory(const char * username,
             // hasOutputRows = 1;
             for(i = 0; i < readWriteOutputPtr->noOfOutputRows; i++){
                 currentItemName = replaceDashWithSpace(readWriteOutputPtr->outputRows[i][0]);
-                AddToInventory(inventoryStruct, getItem(currentItemName));
+                addToInventory(inventoryStruct, getItem(currentItemName));
                 free(currentItemName);
                 currentItemName = NULL;
             }

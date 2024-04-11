@@ -2,14 +2,14 @@
 #define GAME_H
 int gameMain(char * username);
 
-void PrintAttributes();
-void PrintActionList();
-void PrintPenalty(char * attr, int dmg);
-void PrintGameOver(GameInfo * gameInfo);
-int InputParser(char * input);
-void RegulateAttrVals(int * attr, int max, int min);
-void RegulateAllAttr(Player * player);
-void FreeAll(Inventory * inventory, Item * consumablesPool, Animal * animalPool, Item * rewardPool);
+void printAttributes(GameInfo * gameInfo, Player * player);
+void printActionList();
+void printPenalty(char * attr, int dmg);
+void printGameOver(GameInfo * gameInfo);
+int inputParser(char * input);
+void regulateAttrVals(int * attr, int max, int min);
+void regulateAllAttr(Player * player);
+void freeAll(Inventory * inventory, Item * consumablesPool, Animal * animalPool, Item * rewardPool);
 
 #include "../file_read_write/fileReadWriteCommon.h"
 extern char * toLowercase(char * string);

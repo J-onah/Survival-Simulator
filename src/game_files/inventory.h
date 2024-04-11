@@ -7,13 +7,13 @@ struct inventoryStruct
     int count;
 };
 
-Inventory SetupInventory();
-void AddToInventory(Inventory * inventoryStruct, Item item);
-void RemoveFromInventory(Inventory * inventoryStruct, int idx);
-void FreeInventory(Inventory * inventoryStruct);
-void PrintInventoryList(Inventory * inventoryStruct);
-int InventoryParser(Inventory * inventoryStruct, char * input);
-void InventoryManagement(Player * player, Inventory * inventoryStruct, int * repeat);
+Inventory setupInventory();
+void addToInventory(Inventory * inventoryStruct, Item item);
+void removeFromInventory(Inventory * inventoryStruct, int idx);
+void freeInventory(Inventory * inventoryStruct);
+void printInventoryList(Inventory * inventoryStruct);
+int inventoryParser(Inventory * inventoryStruct, char * input);
+void inventoryManagement(Player * player, Inventory * inventoryStruct, int * repeat);
 
 extern char * toLowercase(char * string);
 extern char * digitToCharArr(int n);

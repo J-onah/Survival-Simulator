@@ -14,7 +14,7 @@ typedef enum
     NO = 0
 } Choice;
 
-Item * SetupConsumableTypes()
+Item * setupConsumableTypes()
 {
     Item * items = (Item *) malloc (sizeof(Item) * NUM_CONSUMABLES_TYPE);
     if (!items)
@@ -22,27 +22,27 @@ Item * SetupConsumableTypes()
         fprintf(stderr, "ERROR: Malloc unsuccessful\n");
         exit(EXIT_FAILURE);
     }
-    items[0] = InitialiseConsumables("Clean Water", 0, 0, 50, 15);
-    items[1] = InitialiseConsumables("Canned Beans", 10, 30, 10, 10);
-    items[2] = InitialiseConsumables("Dried Fruit", 15, 20, 5, 20);
-    items[3] = InitialiseConsumables("Jerky", 20, 40, -5, 5);
-    items[4] = InitialiseConsumables("Granola Bar", 15, 30, -5, 5);
-    items[5] = InitialiseConsumables("Canned Soup", 0, 5, 20, 10);
-    items[6] = InitialiseConsumables("Energy Drink", 30, 0, 20, 10);
-    items[7] = InitialiseConsumables("Nuts", 10, 25, -5, 10);
-    items[8] = InitialiseConsumables("Canned Tuna", 25, 40, 10, 10);
-    items[9] = InitialiseConsumables("Bottled Juice", 0, 15, 60, 5);
+    items[0] = initialiseConsumables("Clean Water", 0, 0, 50, 15);
+    items[1] = initialiseConsumables("Canned Beans", 10, 30, 10, 10);
+    items[2] = initialiseConsumables("Dried Fruit", 15, 20, 5, 20);
+    items[3] = initialiseConsumables("Jerky", 20, 40, -5, 5);
+    items[4] = initialiseConsumables("Granola Bar", 15, 30, -5, 5);
+    items[5] = initialiseConsumables("Canned Soup", 0, 5, 20, 10);
+    items[6] = initialiseConsumables("Energy Drink", 30, 0, 20, 10);
+    items[7] = initialiseConsumables("Nuts", 10, 25, -5, 10);
+    items[8] = initialiseConsumables("Canned Tuna", 25, 40, 10, 10);
+    items[9] = initialiseConsumables("Bottled Juice", 0, 15, 60, 5);
     return items;
 }
 
-Item * SetupConsumables()
+Item * setupConsumables()
 {
     int i;
     int j;
     int start = 0;
     int end = 0;
     Item current;
-    Item * items = SetupConsumableTypes();
+    Item * items = setupConsumableTypes();
     Item * consumables = (Item *) malloc(sizeof(Item) * CONSUMABLES_QUANTITY);
     if (!items)
         return NULL;
@@ -65,7 +65,7 @@ Item * SetupConsumables()
     return consumables;
 }
 
-Item InitialiseConsumables(char * name, int energy, int hunger, int thirst, int chance)
+Item initialiseConsumables(char * name, int energy, int hunger, int thirst, int chance)
 {
     Item item;
     item.name = name;
@@ -76,7 +76,7 @@ Item InitialiseConsumables(char * name, int energy, int hunger, int thirst, int 
     return item;
 }
 
-void PrintItemDetails(Item item)
+void printItemDetails(Item item)
 {
     printf("\n%s details\n", item.name);
     printf("--------------------------------\n");
@@ -86,7 +86,7 @@ void PrintItemDetails(Item item)
     printf("Do you wish to continue?\n 1 - Yes\t2- No\n");
 }
 
-void ItemConfirmation(Player * player, Inventory * inventoryStruct, Item item, int * again)
+void itemConfirmation(Player * player, Inventory * inventoryStruct, Item item, int * again)
 {
     char scan[20];
     char * input;
@@ -94,15 +94,15 @@ void ItemConfirmation(Player * player, Inventory * inventoryStruct, Item item, i
     do
     {
         repeat = FALSE;
-        PrintItemDetails(item);
+        printItemDetails(item);
         printf("Decision: ");
         scanf("%s", scan);
-        input = ReadFromScanf(scan);
-        switch(ItemConfirmationParser(input))
+        input = readFromScanf(scan);
+        switch(itemConfirmationParser(input))
         {
             case YES:
-                UseItem(player, item);
-                RemoveFromInventory(inventoryStruct, item.index);
+                useItem(player, item);
+                removeFromInventory(inventoryStruct, item.index);
                 break;
             case NO:
                 *again = TRUE;
@@ -121,7 +121,7 @@ void ItemConfirmation(Player * player, Inventory * inventoryStruct, Item item, i
     } while (repeat == TRUE);
 }
 
-int ItemConfirmationParser(char * option)
+int itemConfirmationParser(char * option)
 {
     char * str = toLowercase(option);
     if (!strcmp(str,"1") || !strcmp(str,"yes"))
@@ -131,14 +131,14 @@ int ItemConfirmationParser(char * option)
     return ERROR;
 }
 
-void UseItem(Player * player, Item item)
+void useItem(Player * player, Item item)
 {
     player->energy += item.energy;
     player->thirst -= item.thirst;
     player->hunger -= item.hunger;
 }
 
-void FreeConsumablesPool(Item * consumablesPool)
+void freeConsumablesPool(Item * consumablesPool)
 {
     free(consumablesPool);
 }

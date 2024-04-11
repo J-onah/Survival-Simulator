@@ -32,12 +32,12 @@ int gameMain(char * username)
     GameInfo gameInfo = {0};
     Inventory inventory = {0};
 
-    SetRandomizerSeed();
-    inventory = SetupInventory();
+    setRandomizerSeed();
+    inventory = setupInventory();
     loadUserInventory(username, &inventory, 2, NULL, NULL);
-    consumablesPool = SetupConsumables();
-    animalPool = SetupAnimals();
-    rewardPool = SetupAnimalRewards();
+    consumablesPool = setupConsumables();
+    animalPool = setupAnimals();
+    rewardPool = setupAnimalRewards();
     
     if(!loadUserGameStats(username, &player, &gameInfo, 8, NULL, NULL)){
         /* Set Default Values (New Playthrough) */
@@ -64,30 +64,30 @@ int gameMain(char * username)
             {
                 player.hunger = MAX_HUNGER;
                 player.health -= HUNGER_PENALTY;
-                PrintPenalty("Hunger", HUNGER_PENALTY);
+                printPenalty("Hunger", HUNGER_PENALTY);
             }
             if (player.thirst >= MAX_THIRST)
             {
                 player.thirst = MAX_THIRST;
                 player.health -= HUNGER_PENALTY;
-                PrintPenalty("Thirst", THIRST_PENALTY);
+                printPenalty("Thirst", THIRST_PENALTY);
             }
 
             /* Print Attribute Text*/
-            PrintAttributes(&gameInfo, &player);
+            printAttributes(&gameInfo, &player);
 
             do
             {
                 repeat = FALSE;
-                PrintActionList();
+                printActionList();
                 printf("Decision: ");
                 scanf("%s", scan);
-                input = ReadFromScanf(scan);
+                input = readFromScanf(scan);
                 printf("\n");
-                switch(InputParser(input))
+                switch(inputParser(input))
                 {
                     case SCAVANGE:
-                        /* Scavange */
+                        /* scavange */
                         if (player.energy == 0)
                         {
                             printf("You don't have enough energy to scavange. Sleep or Eat to gain energy.\n");
@@ -95,11 +95,11 @@ int gameMain(char * username)
                         }
                         else
                         {
-                            Scavange(&gameInfo, &player, &inventory, animalPool, consumablesPool, rewardPool);
+                            scavange(&gameInfo, &player, &inventory, animalPool, consumablesPool, rewardPool);
                         }
                         break;
                     case SLEEP:
-                        Rest(&gameInfo, &player);
+                        rest(&gameInfo, &player);
                         break;
                     case INVENTORY:
                         if(inventory.count == 0)
@@ -109,7 +109,7 @@ int gameMain(char * username)
                         }
                         else
                         {
-                            InventoryManagement(&player, &inventory, &repeat);
+                            inventoryManagement(&player, &inventory, &repeat);
                         }
                         break;
                     case GAME_SETTINGS:
@@ -126,7 +126,7 @@ int gameMain(char * username)
                         break;
                 }
                 free(input);
-                RegulateAllAttr(&player);
+                regulateAllAttr(&player);
                 if (player.health <= 0)
                     break;
             } while (repeat == TRUE);
@@ -138,15 +138,15 @@ int gameMain(char * username)
         gameInfo.dayCount++;
         gameInfo.timeVal = gameInfo.timeVal - 24; /* Regulate Time Value */
     }
-    PrintGameOver(&gameInfo);
+    printGameOver(&gameInfo);
     compareLeaderboard(username, gameInfo.dayCount, NULL, NULL);
     deleteUserGameStats(username);
     deleteUserInventory(username);
-    FreeAll(&inventory, consumablesPool, animalPool, rewardPool);
+    freeAll(&inventory, consumablesPool, animalPool, rewardPool);
     return 0;
 }
 
-void PrintAttributes(GameInfo * gameInfo, Player * player)
+void printAttributes(GameInfo * gameInfo, Player * player)
 {
     printf("Day %d, Time: %dh\n", gameInfo->dayCount, gameInfo->timeVal);
     printf("--------------------------------\n");
@@ -156,7 +156,7 @@ void PrintAttributes(GameInfo * gameInfo, Player * player)
     printf("Thirst Level: %d/%d\n", player->thirst, MAX_THIRST);
 }
 
-void PrintActionList()
+void printActionList()
 {
     printf("\n");
     printf("Please input:\n");
@@ -166,18 +166,18 @@ void PrintActionList()
     printf("4 - Game Settings\n");
 }
 
-void PrintPenalty(char * attr, int dmg)
+void printPenalty(char * attr, int dmg)
 {
     printf("Your %s level is maxed. You have suffered %d damage\n\n", attr, dmg);
 }
 
-void PrintGameOver(GameInfo * gameInfo)
+void printGameOver(GameInfo * gameInfo)
 {
     printf("GAME OVER\nYour health has reached 0.\nYou survived a total of %d days.\nThank you for playing!\n", gameInfo->dayCount);
 }
 
 /* Checks input and returns the corresponding integer value */
-int InputParser(char * input)
+int inputParser(char * input)
 {
     char * input_lower = toLowercase(input);
     if (!strcmp(input_lower,"1") || !strcmp(input_lower,"scavange"))
@@ -192,7 +192,7 @@ int InputParser(char * input)
 }
 
 /* Ensures attr do not exceed max or min value */
-void RegulateAttrVals(int * attr, int max, int min)
+void regulateAttrVals(int * attr, int max, int min)
 {
     if (* attr >= max)
         * attr = MAX_ENERGY;
@@ -201,17 +201,17 @@ void RegulateAttrVals(int * attr, int max, int min)
 }
 
 /* Ensures all attributes do not exceed max or min value */
-void RegulateAllAttr(Player * player)
+void regulateAllAttr(Player * player)
 {
-    RegulateAttrVals(&(player->energy), MAX_ENERGY, 0);
-    RegulateAttrVals(&(player->hunger), MAX_HUNGER, 0);
-    RegulateAttrVals(&(player->thirst), MAX_THIRST, 0);
-    RegulateAttrVals(&(player->health), MAX_HEALTH, 0);
+    regulateAttrVals(&(player->energy), MAX_ENERGY, 0);
+    regulateAttrVals(&(player->hunger), MAX_HUNGER, 0);
+    regulateAttrVals(&(player->thirst), MAX_THIRST, 0);
+    regulateAttrVals(&(player->health), MAX_HEALTH, 0);
 }
 
-void FreeAll(Inventory * inventory, Item * consumablesPool, Animal * animalPool, Item * rewardPool)
+void freeAll(Inventory * inventory, Item * consumablesPool, Animal * animalPool, Item * rewardPool)
 {
-    FreeInventory(inventory);
-    FreeConsumablesPool(consumablesPool);
-    FreeAnimalPool(animalPool, rewardPool);
+    freeInventory(inventory);
+    freeConsumablesPool(consumablesPool);
+    freeAnimalPool(animalPool, rewardPool);
 }
