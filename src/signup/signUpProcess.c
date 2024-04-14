@@ -34,7 +34,7 @@ void freeEncryptionInfoPtr(EncryptionInfo * encryptionInfoPtr){
     }
 }
 
-void signUpProcess(){
+int signUpProcess(){
 
     EncryptionInfo encryptionInfo = {0};
     EncryptionInfo * encryptionInfoPtr = &encryptionInfo;
@@ -68,7 +68,7 @@ void signUpProcess(){
         printf("Cancelling Sign Up.....\n");
         free(username);
         free(password);  
-        return;
+        return 1;
     }
 
     while(!isAbleToProceed){
@@ -89,7 +89,7 @@ void signUpProcess(){
                 printf("Cancelling Sign Up.....\n");
                 free(username);
                 free(password);     
-                return;
+                return 1;
             }
         }
         else{
@@ -114,7 +114,7 @@ void signUpProcess(){
         printf("Cancelling Sign Up.....\n");
         free(username);
         free(password); 
-        return;
+        return 1;
     }
 
     while(!checkSignUpPassword(password)){
@@ -127,7 +127,7 @@ void signUpProcess(){
             free(username);
             free(password); 
             freeEncryptionInfoPtr(encryptionInfoPtr);
-            return;
+            return 1;
         }
     }
 
@@ -171,4 +171,6 @@ void signUpProcess(){
     free(username);
     free(readWriteStatement);
     freeEncryptionInfoPtr(encryptionInfoPtr);
+
+    return 1;
 }

@@ -11,4 +11,4 @@ extern void encrypt(EncryptionInfo * encryptionInfoPtr);
 extern int readWriteWithStatement(char * readWriteStatement, ReadWriteOutput * readWriteOutputPtr, int noOfCols, const FilenameAndCols * filenameAndCols);
 
 extern void freeEncryptionInfoPtr(EncryptionInfo * encryptionInfoPtr);
-extern void signUpProcess();
+extern int signUpProcess();

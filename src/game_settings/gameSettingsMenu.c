@@ -103,7 +103,7 @@ int gameSettingsMenu(char * username, Player * playerPtr, GameInfo * gameInfoPtr
 
             case INVALID_SETTINGS_MENU_STATE:
                 do{
-                    printf("Please key in either 1, 2, 3 or 4 only: ");
+                    printf("Please key in either 1, 2, 3, 4 or 5 only: ");
                     scanf("%10s", choice);
                     checkSettingsChoice(&settingsMenuFSM, choice);
                 } while(settingsMenuFSM.currentState == INVALID_SETTINGS_MENU_STATE);

@@ -16,10 +16,10 @@ typedef struct{
 } MainMenuFSM;
 void initMainMenuFSM(MainMenuFSM * mainMenuFSM);
 
-extern void signUpProcess();
+extern int signUpProcess();
 extern int loginProcess(char ** usernamePtr);
 extern int replayMenu();
-extern void showLeaderboard();
+extern int showLeaderboard();
 extern int attemptRestoreProcess();
 extern int gameMain(char * username);
 

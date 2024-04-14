@@ -12,7 +12,7 @@
 #ifndef LEADERBOARD_PROCESS_H_FILE
 #define LEADERBOARD_PROCESS_H_FILE
 
-extern void showLeaderboard();
+extern int showLeaderboard();
 
 typedef struct{
     char * readWriteSelectStatement;

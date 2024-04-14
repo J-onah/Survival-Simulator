@@ -15,23 +15,23 @@ void initMainMenuFSM(MainMenuFSM * mainMenuFSM){
 }
 
 void checkChoice(MainMenuFSM * mainMenuFSMPtr, char choice[]){
-    if(!strcmp(choice, choices[0][0]) || !strcmp(choice, choices[0][1])){
+    if(!strcmp(choice, choices[0][0])){
         /* LOGIN SECTION */
         mainMenuFSMPtr->currentState = LOGIN_STATE;
     }
-    else if(!strcmp(choice, choices[1][0]) || !strcmp(choice, choices[1][1])){
+    else if(!strcmp(choice, choices[1][0])){
         /* SIGNUP SECTION */
         mainMenuFSMPtr->currentState = SIGN_UP_STATE; 
     }
-    else if(!strcmp(choice, choices[2][0]) || !strcmp(choice, choices[2][1])){
+    else if(!strcmp(choice, choices[2][0])){
         /* SHOW LEADERBOARD SECTION */
         mainMenuFSMPtr->currentState = SHOW_LEADERBOARD_STATE;
     }
-    else if(!strcmp(choice, choices[3][0]) || !strcmp(choice, choices[3][1])){
+    else if(!strcmp(choice, choices[3][0])){
         /* ATTEMPT DATA RESTORE SECTION */
         mainMenuFSMPtr->currentState = ATTEMPT_DATA_RESTORE_STATE;
     }
-    else if(!strcmp(choice, choices[4][0]) || !strcmp(choice, choices[4][1])){
+    else if(!strcmp(choice, choices[4][0])){
         /* EXIT SECTION */
         mainMenuFSMPtr->currentState = EXIT_STATE;
     }
@@ -44,6 +44,7 @@ int main(int argc, char ** argv){
 
     char choice[11];
     int MENU_CHOICES_COUNT = 5;
+    int processOutput = 0;
     
     int i = 0;
     char ** usernamePtr = NULL;
@@ -87,23 +88,27 @@ int main(int argc, char ** argv){
                 case LOGIN_STATE:
                     if(loginProcess(usernamePtr)){
                         do{
-                            if(gameMain(usernamePtr[0])){
+                            processOutput = gameMain(usernamePtr[0]);
+                            if(processOutput == 1){
                                 /* If user chooses to sign out. Else if user lost, repeat while loop. */
                                 break;
                             }
-                        } while(replayMenu());
+                            else{
+                                processOutput = replayMenu();
+                            }
+                        } while(!processOutput);
                     }
 
                     initMainMenuFSM(&mainMenuFSM);
                     break;
 
                 case SIGN_UP_STATE:
-                    signUpProcess();
+                    processOutput = signUpProcess();
                     initMainMenuFSM(&mainMenuFSM);
                     break;
 
                 case SHOW_LEADERBOARD_STATE:
-                    showLeaderboard();
+                    processOutput = showLeaderboard();
                     initMainMenuFSM(&mainMenuFSM);
                     break;
 
@@ -113,10 +118,13 @@ int main(int argc, char ** argv){
                         initFile(FILENAME_AND_COLS[i].filename, &FILENAME_AND_COLS[i]);
                     }
 
-                    if(!attemptRestoreProcess()){
-                        return EXIT_FAILURE;
+                    processOutput = attemptRestoreProcess();
+                    if(!processOutput){
+                        mainMenuFSM.currentState = EXIT_STATE;
                     }
-                    initMainMenuFSM(&mainMenuFSM);
+                    else{
+                        initMainMenuFSM(&mainMenuFSM);
+                    }
                     break;
 
                 case EXIT_STATE:
@@ -126,7 +134,7 @@ int main(int argc, char ** argv){
 
                 case INVALID_MENU_STATE:
                     do{
-                        printf("Please key in either 1, 2, 3 or 4 only: ");
+                        printf("Please key in either 1, 2, 3, 4 or 5 only: ");
                         scanf("%10s", choice);
                         checkChoice(&mainMenuFSM, choice);
                     } while(mainMenuFSM.currentState == INVALID_MENU_STATE);

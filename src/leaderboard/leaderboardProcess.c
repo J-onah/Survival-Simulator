@@ -5,7 +5,7 @@
 #include "../file_read_write/fileReadWriteCommon.h"
 #include "leaderboardProcess.h"
 
-void showLeaderboard(){
+int showLeaderboard(){
     char * readWriteSelectStatement = "SELECT * FROM leaderboard;";
 
     int i = 0;
@@ -55,7 +55,7 @@ void showLeaderboard(){
         scanf("%3s", inputString);
         if(!strcmp(inputString, "-1")){
             printf("Returning to Main Menu.....\n");
-            return;
+            return 1;
         }
     }
 }

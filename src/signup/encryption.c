@@ -96,14 +96,6 @@ void processEncryption(EncryptionFSM * encryptionFSM,
                        char * currentHash,
                        const char * encryptionKey,
                        const int i){
-    /* 
-     * Check if convert currentHash character at specific index to new ASCII code by adding or subtracting.
-     * Convert currentHash character at specific index to new ASCII code.
-     * Swap positions with another character in currentHash.
-     * Get new ASCII code to change to, and new swap position.
-     * Set currEncryptCharInfo.
-     * Return and call this function again until swapNum = 0.
-     */
 
     char temp = ' ';
     int pos = 0, asciiValToChangeBy, charPosToSwapWith;

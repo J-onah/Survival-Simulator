@@ -9,6 +9,7 @@ typedef enum {
 typedef struct{
    CheckSignUpUsernameState currentState;
 } CheckSignUpUsernameFSM;
+void initCheckSignUpUsernameFSM(CheckSignUpUsernameFSM * checkSignUpUsernameFSMPtr);
 void processCheckSignUpUsernameChar(CheckSignUpUsernameFSM * checkSignUpUsernameFSM, char currentChar);
 int checkSignUpUsername(char * username);
 extern int readWriteWithStatement(char * readWriteStatement, ReadWriteOutput * readWriteOutputPtr, int noOfCols, const FilenameAndCols * filenameAndCols);

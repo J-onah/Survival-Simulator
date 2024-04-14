@@ -14,11 +14,11 @@ void initReplayMenuFSM(ReplayMenuFSM * replayMenuFSM){
 }
 
 void checkReplayChoice(ReplayMenuFSM * replayMenuFSMPtr, char choice[]){
-    if(!strcmp(choice, replayChoices[0][0]) || !strcmp(choice, replayChoices[0][1])){
+    if(!strcmp(choice, replayChoices[0][0])){
         /* LOGIN SECTION */
         replayMenuFSMPtr->currentState = YES_STATE;
     }
-    else if(!strcmp(choice, replayChoices[1][0]) || !strcmp(choice, replayChoices[1][1])){
+    else if(!strcmp(choice, replayChoices[1][0])){
         /* SIGNUP SECTION */
         replayMenuFSMPtr->currentState = NO_SIGN_OUT_STATE; 
     }
@@ -50,11 +50,11 @@ int replayMenu(){
                 break;
 
             case YES_STATE:
-                return 1;
+                return 0;
 
             case NO_SIGN_OUT_STATE:
                 printf("\nSigning Out.....\n");
-                return 0;
+                return 1;
 
             case INVALID_MENU_STATE:
                 do{

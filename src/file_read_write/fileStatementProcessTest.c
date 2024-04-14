@@ -104,37 +104,73 @@ int testReadWriteStatementParserUnit(char * statement, ReadWriteDataInfo * testR
 }
 
 int testReadWriteStatementParserSelect(){
-    ReadWriteDataInfo testReadWriteDataInfo;
+        ReadWriteDataInfo testReadWriteDataInfo;
     ReadWriteDataInfo * testReadWriteDataInfoPtr = &testReadWriteDataInfo;
     int isValidStatement = 0;
     char * testReadWriteStatement;
 
     /* Testing Scenarios of Select Statements */
     isValidStatement = 1;
+
     /* Test Scenario 1 of Select Statement. */
     /* printf("\nTest 1\n"); */
-    testReadWriteStatement = "SELECT * FROM table_name WHERE col_name1 = \tstringValue1\t AND col_name2 = \t123\t;";
+    testReadWriteStatement = "SELECT * FROM table_name;";
     if(!testReadWriteStatementParserUnit(testReadWriteStatement, testReadWriteDataInfoPtr, isValidStatement, 1)) return 0;
 
     /* Test Scenario 2 of Select Statement. */
     /* printf("\nTest 2\n"); */
-    testReadWriteStatement = "SELECT col_name1, col_name2 FROM table_name WHERE col_name1 = \tstringValue1\t AND col_name2 = \t123\t;";
+    testReadWriteStatement = "SELECT * FROM table_name WHERE col_name1 = \tstringValue1\t;";
     if(!testReadWriteStatementParserUnit(testReadWriteStatement, testReadWriteDataInfoPtr, isValidStatement, 2)) return 0;
 
     /* Test Scenario 3 of Select Statement. */
     /* printf("\nTest 3\n"); */
-    testReadWriteStatement = "SELECT*FROM table_name WHERE col_name1 = \tstringValue1\t AND col_name2 = \t123\t;";
+    testReadWriteStatement = "SELECT * FROM table_name WHERE col_name1 = \tstringValue1\t AND col_name2 = \t123\t;";
     if(!testReadWriteStatementParserUnit(testReadWriteStatement, testReadWriteDataInfoPtr, isValidStatement, 3)) return 0;
 
     /* Test Scenario 4 of Select Statement. */
     /* printf("\nTest 4\n"); */
-    testReadWriteStatement = "SELECT*FROMtable_nameWHEREcol_name1=\tstringValue1\tANDcol_name2=\t123\t;";
+    testReadWriteStatement = "SELECT col_name1 FROM table_name;";
     if(!testReadWriteStatementParserUnit(testReadWriteStatement, testReadWriteDataInfoPtr, isValidStatement, 4)) return 0;
 
     /* Test Scenario 5 of Select Statement. */
     /* printf("\nTest 5\n"); */
-    testReadWriteStatement = "SELECTcol_name1,col_name2FROMtable_nameWHEREcol_name1=\tstringValue1\tANDcol_name2=\t123\t;";
+    testReadWriteStatement = "SELECT col_name1, col_name2 FROM table_name;";
     if(!testReadWriteStatementParserUnit(testReadWriteStatement, testReadWriteDataInfoPtr, isValidStatement, 5)) return 0;
+
+    /* Test Scenario 6 of Select Statement. */
+    /* printf("\nTest 6\n"); */
+    testReadWriteStatement = "SELECT col_name1 FROM table_name WHERE col_name1 = \tstringValue1\t;";
+    if(!testReadWriteStatementParserUnit(testReadWriteStatement, testReadWriteDataInfoPtr, isValidStatement, 6)) return 0;
+
+    /* Test Scenario 7 of Select Statement. */
+    /* printf("\nTest 7\n"); */
+    testReadWriteStatement = "SELECT col_name1 FROM table_name WHERE col_name1 = \tstringValue1\t AND col_name2 = \t123\t;";
+    if(!testReadWriteStatementParserUnit(testReadWriteStatement, testReadWriteDataInfoPtr, isValidStatement, 7)) return 0;
+
+    /* Test Scenario 8 of Select Statement. */
+    /* printf("\nTest 8\n"); */
+    testReadWriteStatement = "SELECT col_name1, col_name2 FROM table_name WHERE col_name1 = \tstringValue1\t;";
+    if(!testReadWriteStatementParserUnit(testReadWriteStatement, testReadWriteDataInfoPtr, isValidStatement, 8)) return 0;
+
+    /* Test Scenario 9 of Select Statement. */
+    /* printf("\nTest 9\n"); */
+    testReadWriteStatement = "SELECT col_name1, col_name2 FROM table_name WHERE col_name1 = \tstringValue1\t AND col_name2 = \t123\t;";
+    if(!testReadWriteStatementParserUnit(testReadWriteStatement, testReadWriteDataInfoPtr, isValidStatement, 9)) return 0;
+
+    /* Test Scenario 10 of Select Statement. */
+    /* printf("\nTest 10\n"); */
+    testReadWriteStatement = "SELECT*FROM table_name WHERE col_name1 = \tstringValue1\t AND col_name2 = \t123\t;";
+    if(!testReadWriteStatementParserUnit(testReadWriteStatement, testReadWriteDataInfoPtr, isValidStatement, 10)) return 0;
+
+    /* Test Scenario 11 of Select Statement. */
+    /* printf("\nTest 11\n"); */
+    testReadWriteStatement = "SELECT*FROMtable_nameWHEREcol_name1=\tstringValue1\tANDcol_name2=\t123\t;";
+    if(!testReadWriteStatementParserUnit(testReadWriteStatement, testReadWriteDataInfoPtr, isValidStatement, 11)) return 0;
+
+    /* Test Scenario 12 of Select Statement. */
+    /* printf("\nTest 12\n"); */
+    testReadWriteStatement = "SELECTcol_name1,col_name2FROMtable_nameWHEREcol_name1=\tstringValue1\tANDcol_name2=\t123\t;";
+    if(!testReadWriteStatementParserUnit(testReadWriteStatement, testReadWriteDataInfoPtr, isValidStatement, 12)) return 0;
 
     freeReadWriteDataInfoPtr(testReadWriteDataInfoPtr);
 

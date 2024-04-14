@@ -9,6 +9,10 @@
 #include "../file_read_write/fileReadWriteCommon.h"
 #include "signUpUsernameProcessing.h"
 
+void initCheckSignUpUsernameFSM(CheckSignUpUsernameFSM * checkSignUpUsernameFSMPtr){
+    checkSignUpUsernameFSMPtr->currentState = VALID_USERNAME_STATE;
+}
+
 void processCheckSignUpUsernameChar(CheckSignUpUsernameFSM * checkSignUpUsernameFSM, char currentChar){
     if((currentChar >= 'a' && currentChar <= 'z') ||
         (currentChar >= 'A' && currentChar <= 'Z') || 
@@ -27,19 +31,21 @@ int checkSignUpUsername(char * username){
     CheckSignUpUsernameFSM checkSignUpUsernameFSM;
     int usernameLength = strlen(username);
 
+    initCheckSignUpUsernameFSM(&checkSignUpUsernameFSM);
+
     if(usernameLength < MIN_USERNAME_LENGTH || usernameLength > MAX_USERNAME_LENGTH){
         checkSignUpUsernameFSM.currentState = INVALID_USERNAME_STATE;
-        return 0;
     }
     else{
         for(i = 0; username[i] != '\0'; i++){
             processCheckSignUpUsernameChar(&checkSignUpUsernameFSM, username[i]);
             if(checkSignUpUsernameFSM.currentState == INVALID_USERNAME_STATE){
-                return 0;
+                break;
             }
         }
-        return 1;   
-    }    
+    }  
+
+    return checkSignUpUsernameFSM.currentState == VALID_USERNAME_STATE;  
 }
 
 int checkIfUsernameExist(char * username){
