@@ -99,6 +99,9 @@ int main(int argc, char ** argv){
                         } while(!processOutput);
                     }
 
+                    free(usernamePtr[0]);
+                    usernamePtr[0] = NULL;
+                    
                     initMainMenuFSM(&mainMenuFSM);
                     break;
 
