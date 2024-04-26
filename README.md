@@ -10,14 +10,16 @@ Topic/Problem: Survival Simulator Text Game
 
 ### Action Details
 → Scavenging and sleeping takes a certain number of time (random within a range, using stdlib.h and time.h for Random Number Generator)
-<br>→ Actions have a consequence (Energy, Hunger, Thirst, Health):
-· Scavenge (Action) → Consequence: A chance to get resources (food and water) but also a chance to encounter dangerous animal
-· Sleep (Action) → Consequence: Gain Energy
-· Eat (Action) → Consequence: Decrease Hunger, Gain Little Energy
-· Drink (Action) → Consequence: Decrease Thirst
-<br>→ Actions when Encountering Dangerous Animal:
-· Fight → Chance to decrease health
-· Run → Decrease energy
+
+→ Actions have a consequence (Energy, Hunger, Thirst, Health):
+- Scavenge (Action) → Consequence: A chance to get resources (food and water) but also a chance to encounter dangerous animal
+- Sleep (Action) → Consequence: Gain Energy
+- Eat (Action) → Consequence: Decrease Hunger, Gain Little Energy
+- Drink (Action) → Consequence: Decrease Thirst
+
+→ Actions when Encountering Dangerous Animal:
+- Fight → Chance to decrease health
+- Run → Decrease energy
 
 ### Rules
 - If you run out of energy, disallow scavenging. As the number of days increases, higher chances of encountering dangerous animals.
